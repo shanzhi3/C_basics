@@ -1,0 +1,33 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h> // 包含 malloc 和 free 的头文件
+char * mergeAlternately(char * word1, char * word2){
+    int a = strlen(word1);
+    int b = strlen(word2);
+    int i;
+    int k = 0;
+    char * ans = malloc((a + b + 1) * sizeof(char)); // 声明一个字符串类型的指针，并分配相应内存
+    for (i = 0; i < a || i < b; i++){
+        if (i < a) {
+            ans[k++] = word1[i]; 
+        }
+        if (i < b){
+            ans[k++] = word2[i];
+        }   
+    }
+    ans[k] = '\0'; // 空字符，字符串结束标志
+    return ans;
+}
+
+/*Line 13: Char 13: error: invalid type argument of unary ‘*’ (have ‘int’) [solution.c]
+   13 |             *ans[k++] = word1[i];
+*/
+
+/*Line 20: Char 12: error: returning ‘char *’ from a function with return type ‘int’ makes integer from pointer without a cast [-Wint-conversion] [solution.c]
+   20 |     return ans;
+      |            ^~~
+*/
+
+/* error: initialization of ‘char *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion] [solution.c]
+   78 |         char* ret = mergeAlternately(param_1, param_2);
+*/
