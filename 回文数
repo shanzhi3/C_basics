@@ -1,0 +1,23 @@
+bool isPalindrome(int x) {
+    if (x < 0){
+        return false;
+    }
+    else{
+        long int a, b = 0;
+        a = x;
+        //key 翻转数字
+        while (a != 0){
+            b = b * 10 + a % 10;
+            a = a / 10;
+        }
+        if (x == b){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+//Line 10: Char 19: runtime error: signed integer overflow: 998765432 * 10 cannot be represented in type 'int' [solution.c]
+
+最开始想到的是把int的每一位转成单个字符，用数组一个个判断是不是对称。
