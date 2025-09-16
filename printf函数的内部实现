@@ -1,0 +1,8 @@
+//指针相关printf函数的内部实现
+char* current = str;  // 从起始地址开始
+
+while (*current != '\0') {  // 直到遇到结束符
+    putchar(*current);      // 输出当前字符
+    current++;             // 移动到下一个字符地址
+}
+putchar('\n');
