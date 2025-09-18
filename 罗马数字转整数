@@ -1,0 +1,64 @@
+力扣13：罗马数转整数
+
+我的想法：设一个空数组。一个char型变量，for循环以输入个数为循环次数，if语句判断char对应的罗马字符，赋值，并存入数组后遍历数组，前后两个比较大小。
+但是没能写出我的想法的实现。
+
+看题解：代码实现时，可以创建一个哈希表，厉害的点是：直字符用ASCII码的值解决数组元素的映射和存放。
+
+参考题解后，
+int romanToInt(char* s) {
+    int roman[128];
+
+    roman['I'] = 1;
+    roman['V'] = 5;
+    roman['X'] = 10;
+    roman['L'] = 50;
+    roman['C'] = 100;
+    roman['D'] = 500;
+    roman['M'] = 1000;
+
+    int a = 0;
+    int i;
+    for (i = 1; s[i]; i++){  //遍历S[i]
+        if (roman[s[i - 1]] < roman[s[i]]){
+            a = a + roman[s[i]] - roman[s[i - 1]];
+        }
+        else{
+            
+            a = a + roman[s[i - 1]];
+        }
+    }
+    if (s[i - 1]){
+        a = a + roman[s[i - 1]];
+    }
+    return a;
+}
+但没有通过测试。因为会把已经处理过的字符再次累加
+
+最后通过的代码：
+int romanToInt(char* s) {
+    int roman[128] = {0}; // 初始化数组，避免未定义行为
+    roman['I'] = 1;
+    roman['V'] = 5;
+    roman['X'] = 10;
+    roman['L'] = 50;
+    roman['C'] = 100;
+    roman['D'] = 500;
+    roman['M'] = 1000;
+
+    int a = 0;
+    int i = 0;
+  
+    while (s[i] != '\0') {    //遍历
+        
+        if (roman[s[i]] < roman[s[i+1]]) {
+            a += roman[s[i+1]] - roman[s[i]];
+            i += 2; // 跳过下一个字符，因为已经处理
+        } else {
+            a += roman[s[i]];
+            i++; // 只移动到下一个字符
+        }
+    }
+    return a;
+}
+
