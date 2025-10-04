@@ -1,0 +1,46 @@
+//刚开始排序写错了，后面用了从大到小的冒泡排序，冒泡排序原理是懂的，但让我自己写成程序还是写不出，相当于把别人的代码背一遍
+//第二次出现了边界问题，有一个测试点过不了
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define MAX 21  // 增加1用于存储字符串结束符'\0'
+
+struct student {
+    char s[MAX];
+    int grade;
+};
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    struct student *arr = (struct student *)malloc(n * sizeof(struct student));  // 动态分配内存
+
+    // 输入学生信息
+    for (int i = 0; i < n; i++) {
+        scanf("%s %d", arr[i].s, &arr[i].grade);
+    }
+
+    // 冒泡排序，先按成绩从高到低排序，如果成绩相同则按名字字典序排序
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - 1 - i; j++) {
+            // 如果当前学生的成绩小于下一个学生的成绩，或者成绩相同但名字字典序大于下一个学生的名字
+            if (arr[j].grade < arr[j + 1].grade || 
+                (arr[j].grade == arr[j + 1].grade && strcmp(arr[j].s, arr[j + 1].s) > 0)) {
+                // 交换两个学生的信息
+                struct student temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+
+    // 输出排序后的学生信息
+    for (int i = 0; i < n; i++) {
+        printf("%s %d\n", arr[i].s, arr[i].grade);
+    }
+
+    free(arr);  // 释放动态分配的内存
+    return 0;
+}
