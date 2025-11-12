@@ -1,0 +1,24 @@
+//向上取整
+//十分钟垃圾分类
+//零点之前出发
+//输出格式
+
+#include<stdio.h>
+int main(){
+    int s, v, t;
+    scanf("%d %d", &s, &v);
+    t = (s + v - 1) / v + 10;
+
+    int arrive_time = 8 * 60;
+    int departure_time = arrive_time - t;
+    
+    if(departure_time < 0){
+        departure_time += 24 * 60;
+    }
+    
+    int hour = departure_time / 60;
+    int minute = departure_time % 60;
+
+    printf("%02d:%02d\n", hour, minute);
+    return 0;
+}
